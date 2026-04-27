@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Starbucks Header -->
+  <header>
+    <figure class="logo">
+      <img src="images/starbucks.png" alt="Starbucks Logo">
+    </figure>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>  
+  </header>
+
+  <!-- Contact Section -->
+  <section class="contact">
+    <div class="container">
+      <div class="left">
+        <div class="form-wrapper">
+          <div class="contact-heading">
+            <h1>Let's work together<span>.</span></h1>
+            <p class="text">Or reach us via : <a href="mailto:starbucks@mail.com">hcifinalproject2026@gmail.com</a></p>
+          </div>
+
+         <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+  <input type="hidden" name="access_key" value="871cc398-ef33-4623-94a3-aad17ca947fc">
+
+  <!-- Floating label inputs -->
+  <div class="input-wrap">
+    <input class="contact-input" type="text" id="fname" name="first_name" placeholder=" " required>
+    <label for="fname">First Name</label>
+    <i class="icon fa-solid fa-address-card"></i>
+  </div>
+
+  <div class="input-wrap">
+    <input class="contact-input" type="text" id="lname" name="last_name" placeholder=" " required>
+    <label for="lname">Last Name</label>
+    <i class="icon fa-solid fa-address-card"></i>
+  </div>
+
+  <div class="input-wrap w-100">
+    <input class="contact-input" type="email" id="email" name="email" placeholder=" " required>
+    <label for="email">Email</label>
+    <i class="icon fa-solid fa-envelope"></i>
+  </div>
+
+  <div class="input-wrap textarea w-100">
+    <textarea class="contact-input" id="message" name="message" placeholder=" " required></textarea>
+    <label for="message">Message</label>
+    <i class="icon fa-solid fa-inbox"></i>
+  </div>
+
+  <div class="contact-buttons">
+    <label class="btn upload">
+      <span><i class="fa-solid fa-paperclip"></i> Add attachment</span>
+      <input type="file" name="attachment" hidden>
+    </label>
+    <button type="submit" class="btn">Send message</button>
+  </div>
+</form>
+
+        </div>
+      </div>
+
+      <div class="right">
+         <div class="image-wrapper">
+    <img src="images/matcha4.png" alt="image">
+         </div>
+        </div>
+      </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
