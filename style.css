@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Aboreto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
 body{
     font-family: Poppins;
     margin: 0;
@@ -25,8 +24,9 @@ body{
 
 header {
   display: grid;
-  grid-template-columns: 80px 1fr; /* logo + nav only */
+  grid-template-columns: 80px 1fr 80px;  
   grid-template-rows: 80px;
+  align-items: center;
   position: fixed; /* or sticky if you want */
   top: 0;
   left: 0;
@@ -36,17 +36,67 @@ header {
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-color);
 }
-
+header .shopping {
+  position: relative;          /* anchor for the badge */
+  display: flex;
+  align-items: center;
+  justify-content: center ;    /* keep the cart centered in its slot */
+  margin-left: 20px;           /* small nudge if needed */
+}
+header .cart-icon {
+  margin-left: -100px; /* move ONLY the icon */
+}
+header .shopping img {
+  width: 40px;
+}
 header .logo img {
-  width: 80%;
+  width: 200%;
 }
 
+header .shopping .quantity {
+  background: #a13939;         /* badge color */
+  color: #fff;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+}
 header .logo {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+.cart-overlay {
+  position: fixed;
+  right: -400px; /* hidden off-screen */
+  top: 0;
+  width: 350px;
+  height: 100%;
+  background: #1e3932; /* Starbucks green */
+  color: #fff;
+  padding: 20px;
+  transition: right 0.3s ease;
+  z-index: 2000;
+}
 
+.cart-overlay.active {
+  right: 0; /* slides in */
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cart-header button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
 header nav a {
   color: #000;
   font-weight: 400;
@@ -68,7 +118,7 @@ header nav{
   position: relative;        /* allows absolute positioning inside */
   min-height: 100vh;
   padding: 60px;
-  background: url('images/bg.png') center/cover no-repeat;
+  background: url('images/starbucksBG.png') center/cover no-repeat;
 }
 
 .hero-content {
@@ -86,18 +136,43 @@ header nav{
   align-items: center;
 }
 
-
 .hero-content h1 {
-  font-family: 'Aboreto', cursive;
-  font-size: 3.5em;
+  font-family: 'Poppins';
+  font-size: 4.0em;
+  font-weight: 400;
+  line-height: 1.3;
+  text-align: left;       /* keep it aligned left */
+  white-space: nowrap;    /* 🔑 forces the whole phrase to stay on one line */
+  letter-spacing: 2px;    /* spacing between letters */
+  word-spacing: 10px;     /* spacing between words */
   margin-bottom: 20px;
-  line-height: 1.2;
+  margin-left: 150px;
+  color: rgb(59, 55, 55);
+  /* animation you already had */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s ease forwards;
 }
 
 .hero-content p {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.2em;
-  margin-bottom: 30px;
+  font-family: 'Poppins',;
+  line-height: 1.6; /* better spacing between lines */
+  color: #000000; /* soft white instead of harsh pure white */
+  
+  max-width: 560px; /* keeps text from stretching too wide */
+  margin: 0 0 30px 150px;
+
+  letter-spacing: 0.3px; /* subtle premium feel */
+
+  /* 🔥 animation */
+  opacity: 0;
+  transform: translateY(25px);
+  animation: fadeUp 0.8s ease forwards;
+  animation-delay: 0.3s;
+}
+.hero-content h1 .starbucks {
+  color: #4f8b69;   /* Starbucks green */
+  font-weight: 700; /* bold highlight */
 }
 
 .cta-button {
@@ -109,19 +184,31 @@ header nav{
   font-weight: 500;
   text-decoration: none;
   transition: background 0.3s;
+   margin-left: 180px;
+
+  /* 🔥 animation */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s ease forwards;
+  animation-delay: 0.6s;
 }
+
 
 .cta-button:hover {
   background-color: #3a6a52;
+}
+
+/* Keyframes */
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .hero-left {
   max-width: 500px;
 }
 
-.hero-image img {
-  width: 100%;
-  max-width: 700px;
-}
 .hero-drinks {
   position: absolute;
   bottom: 50px;             /* lock to bottom */
@@ -137,13 +224,114 @@ header nav{
   object-fit: contain;        
   transition: transform 0.3s ease;
 
+  /* 🔥 entrance animation */
+  opacity: 0;
+  transform: translateY(20px) scale(1); /* include scale here */
+  animation: fadeUpDrinks 0.8s ease forwards;
 }
 
+/* Staggered delays */
+.hero-drinks img:nth-child(1) { animation-delay: 0.2s; }
+.hero-drinks img:nth-child(2) { animation-delay: 0.4s; }
+.hero-drinks img:nth-child(3) { animation-delay: 0.6s; }
+
 .hero-drinks img:hover {
-  transform: scale(1.1);     /* zoom effect on hover */
+  transform: scale(1.1); /* remove translateY */
 }
-html {
-  scroll-behavior: smooth;
+/* Keyframes */
+@keyframes fadeUpDrinks {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1); /* final state */
+  }
+}
+
+/* Tablet + Phone (≤1023px) */
+@media screen and (max-width: 1023px) {
+  header .logo img {
+    width: 150px;
+  }
+  .hero-content {
+    max-width: 80%;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .hero-content h1 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    white-space: normal;
+  }
+  .hero-content p {
+    margin: 0 auto 20px auto;
+  }
+  .cta-button {
+    margin: 20px auto;
+    display: inline-block;
+  }
+}
+
+/* Phones only (≤767px) */
+@media screen and (max-width: 767px) {
+  header {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    height: auto;
+    padding: 10px;
+  }
+  header nav ul {
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  header .logo img {
+    width: 120px;
+  }
+  header nav a {
+    font-size: 0.9rem;
+  }
+
+  .hero-content {
+    position: relative;
+    margin-top: 80px; /* push text down */
+    padding: 20px;
+    max-width: 90%;
+    text-align: center;
+    transform: none;
+  }
+  .hero-content h1 {
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
+    margin: 0 0 15px 0;
+  }
+  .hero-content p {
+    font-size: 1rem;
+    margin: 0 auto 20px auto;
+  }
+  .cta-button {
+    margin: 20px auto;
+  }
+
+  .hero-drinks {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 40px;
+  }
+  .hero-drinks img {
+    width: 60px;
+  }
+}
+
+/* Small phones (≤420px) */
+@media screen and (max-width: 420px) {
+  .hero-content {
+    margin-top: 100px; /* extra push for tiny screens */
+  }
+  .hero-drinks {
+    margin-top: 30px;
+  }
+  .hero-drinks img {
+    width: 50px;
+  }
 }
 
 /* Reset */
@@ -465,8 +653,13 @@ textarea.contact-input ~ .icon {
   border-radius: 30px;
   border: none;
   margin-top: 20px;
+  cursor: pointer;   /* 🔥 makes it behave like a button */
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
-
+.carousel .list .item .main-content .content .addToCart:hover {
+  background-color: #3a6a52; /* darker green */
+  transform: scale(1.05);    /* subtle zoom effect */
+}
 .arrows {
   position: absolute;
   bottom: 20px;
@@ -738,9 +931,240 @@ body{
 .team-nav-arrow.left { left: -30%; top: 190px; }
 .team-nav-arrow.right { right:-30%; }
 
+/* Tablets (769px – 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .team-carousel-container { height: 380px; margin-top: 100px; }
+  .team-card { width: 240px; height: 320px; }
+  .team-member-name { font-size: 2.8rem; }
+  .team-member-role { font-size: 0.9rem; }
+  .team-member-info { margin-top: 30px; }
+  .team-nav-arrow.left { left: -15%; top: 160px; }
+  .team-nav-arrow.right { right: -15%; }
+}
+
+/* Phones (≤768px) */
 @media (max-width: 768px) {
-  .team-card {
-    width: 220px;
-    height: 300px;
+  .team-carousel-container { height: 320px; margin-top: 80px; }
+  .team-card { width: 220px; height: 300px; }
+  .team-member-name { font-size: 2.2rem; }
+  .team-member-role { font-size: 0.85rem; }
+  .team-member-info { margin-top: 50px; }
+  .team-nav-arrow.left { left: -10%; top: 140px; }
+  .team-nav-arrow.right { right: -10%; }
+}
+
+/* Small phones (≤420px) */
+@media (max-width: 420px) {
+  .team-carousel-container { height: 280px; margin-top: 60px; }
+  .team-card { width: 180px; height: 260px; }
+  .team-member-name { font-size: 1.8rem; }
+  .team-member-role { font-size: 0.75rem; }
+  .team-member-info { margin-top: 60px; }
+  .team-nav-arrow.left { left: -8%; top: 120px; }
+  .team-nav-arrow.right { right: -8%; }
+
+}
+/* Cart styles scoped */
+.cartTab .listCart .item {
+  display: grid;
+  grid-template-columns: 70px 150px 50px 1fr;
+  gap: 20px;
+  text-align: center;
+  align-items: center;
+  padding: 10px 0;
+}
+.cartTab .listCart .item img {
+  width: 100%;
+}
+.cartTab .listCart .item .totalPrice {
+  font-weight: 600;
+}
+.cartTab .listCart .quantity span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  color: #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.cartTab {
+  width: 400px;
+  background-color: #353432;
+  color: #eee;
+  position: fixed;
+  inset: 0 -400px 0 auto;
+  display: grid;
+  grid-template-rows: 70px 1fr 70px;
+  transition: .5s;
+  z-index: 2000;        /* keep above carousel */
+  visibility: hidden;   /* hide completely when closed */
+}
+
+body.showCart .cartTab {
+  inset: 0 0 0 auto;
+  visibility: visible;  /* only visible when open */
+}
+
+body.showCart .container {
+    transform: translateX(-250px);
+}
+
+.cartTab h1 {
+    padding: 20px;
+    margin: 0;
+    font-weight: 300;
+}
+
+.cartTab .btn {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.cartTab .btn button {
+    background-color: #E9BC0E;
+    border: none;
+    font-family: Poppins, sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.cartTab .btn .close {
+    background-color: #eee;
+}
+
+.cartTab .listCart .item {
+    display: grid;
+    grid-template-columns: 70px 150px 50px 1fr;
+    gap: 20px;
+    text-align: center;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.cartTab .listCart .item img {
+    width: 100%;
+}
+
+.cartTab .listCart .item .totalPrice {
+    font-weight: 600;
+}
+
+.listCart .quantity span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #eee;
+    color: #555;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.listCart .quantity span:nth-child(2) {
+    background-color: transparent;
+    color: #eee;
+}
+
+.listCart .item:nth-child(even) {
+    background-color: #eee1;
+}
+
+.listCart {
+    overflow: auto;
+}
+
+.listCart::-webkit-scrollbar {
+    width: 0;
+}
+/* Cart icon size */
+header .icon-cart svg {
+  width: 40px;   /* make the icon bigger */
+  height: auto;  /* keep proportions */
+  margin-left: -250px;
+}
+header .icon-cart span {
+  position: absolute;
+  top: 5px;
+  right: -10px;
+  transform: translateX(-280px); /* 🔥 nudges left */
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  line-height: 35px;
+  text-align: center;
+  background: #a13939;
+  color: #fff;
+  border-radius: 50%;
+}
+
+/* Responsive cart icon */
+header .cart-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0; /* remove negative margins */
+}
+
+header .cart-icon svg {
+  width: 36px;   /* base size */
+  height: auto;
+}
+
+header .cart-icon .quantity {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  background: #a13939;
+  color: #fff;
+  border-radius: 50%;
+}
+
+/* Phones (≤768px) */
+@media (max-width: 768px) {
+  header {
+    display: flex;
+    justify-content: space-between; /* logo left, nav center, cart right */
+    align-items: center;
+    padding: 10px;
+  }
+
+  header .cart-icon {
+    margin-left: auto;   /* 🔥 pushes cart to the far right */
+    position: relative;
+  }
+
+  header .cart-icon svg {
+    width: 28px;
+  }
+
+  header .cart-icon .quantity {
+    width: 18px; height: 18px;
+    font-size: 11px; line-height: 18px;
+    top: -4px; right: -4px;
   }
 }
+
+/* Small phones (≤420px) */
+@media (max-width: 420px) {
+  header .cart-icon {
+    margin-left: auto;   /* still pinned right */
+  }
+
+  header .cart-icon svg {
+    width: 24px;
+  }
+
+  header .cart-icon .quantity {
+    width: 16px; height: 16px;
+    font-size: 10px; line-height: 16px;
+    top: -3px; right: -3px;
+  }
+}
+

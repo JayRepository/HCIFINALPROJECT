@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coffee</title>
+  <title>Menu</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <header>
     <figure class="logo">
-      <img src="images/starbucks.png" alt="">
+      <img src="images/STARBUCKSLOGO.png" alt="">
     </figure>
     <nav class="main-nav">
       <ul>
@@ -18,11 +18,22 @@
         <li><a href="menu.html">Menu</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
+        
       </ul>
     </nav>
+    <!-- Cart icon -->
+    <div class="icon-cart">
+      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+           fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
+      </svg>
+      <span>0</span>
+    </div>
   </header>
 
   <!-- Coffee Section -->
+
   <main>
     <section id="menu" class="carousel next">
       <div class="list">
@@ -95,7 +106,27 @@
     </section>
   </main>
 
- 
+ <div class="cartTab">
+    <h1>Shopping Cart</h1>
+    <div class="listCart">
+      <div class="item">
+        <div class="image">
+          <img src="images/matcha1.png" alt="">
+        </div>
+        <div class="name">Caffe Latte</div>
+        <div class="totalPrice">$20</div>
+        <div class="quantity">
+          <span class="minus"><</span>
+          <span>1</span>
+          <span class="plus">></span>
+        </div>
+      </div>
+    </div>
+    <div class="btn">
+      <button class="close">CLOSE</button>
+      <button class="checkOut">CHECK OUT</button>
+    </div>
+  </div>
   <script src="app.js"></script>
 </body>
-</html>
+</html> 
