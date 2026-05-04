@@ -48,16 +48,17 @@ const changeSlider = () => {
     items[other_1].classList.add('other_1');
     items[other_2].classList.add('other_2');
 
+    
     clearInterval(autoPlay);
     autoPlay = setInterval(() => {
         next.click();
     }, 5000);
 }
-
+/*
 let autoPlay = setInterval(() => {
     next.click();
 }, 5000);
-
+ */
 // ===== Contact Form Input Animation =====
 const inputs = document.querySelectorAll(".contact-input");
 inputs.forEach((ipt) => {
@@ -122,7 +123,27 @@ function addToCart(product) {
     carts[position].quantity += 1;
   }
   renderCart();
-  localStorage.setItem('cart', JSON.stringify(carts)); // 🔥 save
+  localStorage.setItem('cart', JSON.stringify(carts));
+  showToast(product.name); // ✅ trigger toast
+}
+
+function showToast(productName) {
+  // Remove existing toast if any
+  let existing = document.querySelector('.cart-toast');
+  if (existing) existing.remove();
+
+  let toast = document.createElement('div');
+  toast.classList.add('cart-toast');
+  toast.innerHTML = `
+    <span>✅ <strong>${productName}</strong> added to cart!</span>
+  `;
+  document.body.appendChild(toast);
+
+  // Auto remove after 3 seconds
+  setTimeout(() => {
+    toast.classList.add('hide');
+    setTimeout(() => toast.remove(), 400);
+  }, 1500);
 }
 
 function renderCart() {
@@ -175,6 +196,6 @@ function changeQuantity(product_id, type) {
     }
   }
   renderCart();
-  localStorage.setItem('cart', JSON.stringify(carts)); // 🔥 save
+  localStorage.setItem('cart', JSON.stringify(carts)); 
 }
 
